@@ -1,0 +1,93 @@
+.html,
+body {
+	height: 100%;
+}
+
+.container-fluid {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.list-group-item:hover {
+	cursor: pointer;
+	transition: 200ms;
+	z-index: 5;
+	outline: 3px solid #ffdb4d;
+}
+
+.card {
+	border: none;
+}
+
+.card-image {
+	object-fit: cover;
+}
+
+.card-text {
+	line-height: 35px;
+}
+
+.card-title {
+	font-size: 40px;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.card-time {
+	color: grey;
+}
+
+.tracks-time {
+	font-size: 15px;
+}
+
+.tracks-author {
+	font-size: 15px;
+}
+
+.track-container {
+	width: 100%;
+}
+
+.progress {
+	width: 100%;
+	height: 10px;
+}
+
+.progress-bar {
+	background-color: black;
+	transition: 100ms;
+}
+
+@media(max-width:425px) {
+	.card-title {
+		font-size: 30px;
+	}
+
+	.card-desc {
+		font-size: 20px;
+	}
+
+	.card-time {
+		font-size: 18px;
+	}
+
+	.card-text {
+		line-height: 25px;
+	}
+
+	.tracks-title {
+		font-size: 20px;
+		font-weight: 600;
+	}
+
+	.tracks-author {
+		font-size: 16px;
+		font-weight: 400;
+	}
+
+	.tracks-time {
+		font-size: 13px;
+	}
+}
