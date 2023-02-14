@@ -73,44 +73,58 @@ function setupAudio() {
 				album.tracks[i].bool = false;
 				audio.pause();
 				img.src = `assets/play-btn.png`;
-			} else {
-				playing();
+			}
+
+
+			else {
+				album.tracks[i].bool = true;
+				function updateProgress() {
+					let time = getTime(audio.currentTime)
+					if (audio.currentTime != time) {
+						timeNode.innerHTML = time;
+						progressBar.style.width = audio.currentTime * 100 / audio.duration + `%`;
+
+						if (audio.currentTime == audio.duration) {
+							img.src = `assets/play-btn.png`;
+							album.tracks[i].bool = false;
+							progressBar.style.width = 0 + `%`;
+							audio.currentTime = 0.00001;
+							audio.pause();
+						}
+					}
+					if (album.tracks[i].bool) {
+						requestAnimationFrame(updateProgress);
+					}
+				}
+				updateProgress();
+
+				let imgNow = img;
+				let audioNow = audio;
+				for (let i = 0; i < images.length; i++) {
+					if (imgNow == images[i]) {
+						imgNow.src = `assets/playing-btn.png`;
+					} else {
+						images[i].src = `assets/play-btn.png`;
+					}
+				}
+				for (let i = 0; i < audios.length; i++) {
+					if (audioNow == audios[i]) {
+						audioNow.play();
+						album.tracks[i].bool = true;
+					} else {
+						audios[i].pause();
+						album.tracks[i].bool = false;
+					}
+				}
 			}
 		});
-		//Когда трек играет
-		function playing() {
-			album.tracks[i].bool = true;
-			function updateProgress() {
-				let time = getTime(audio.currentTime)
-				if (audio.currentTime != time) {
-					timeNode.innerHTML = time;
-					progressBar.style.width = audio.currentTime * 100 / audio.duration + `%`;
-				}
-				if (album.tracks[i].bool) {
-					requestAnimationFrame(updateProgress);
-				}
-			}
-			updateProgress();
 
-			let imgNow = img;
-			let audioNow = audio;
-			for (let i = 0; i < images.length; i++) {
-				if (imgNow == images[i]) {
-					imgNow.src = `assets/playing-btn.png`;
-				} else {
-					images[i].src = `assets/play-btn.png`;
-				}
-			}
-			for (let i = 0; i < audios.length; i++) {
-				if (audioNow == audios[i]) {
-					audioNow.play();
-					album.tracks[i].bool = true;
-				} else {
-					audios[i].pause();
-					album.tracks[i].bool = false;
-				}
-			}
-		}
+
+
+
+
+
+
 	}
 
 	let progressContainer = document.querySelectorAll(`.progress`);
@@ -151,14 +165,6 @@ if (album) {
 } else {
 	console.log(`error`); //^если альбом не найден
 }
-
-
-
-
-
-
-
-
 
 
 
